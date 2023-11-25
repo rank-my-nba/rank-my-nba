@@ -1,11 +1,15 @@
 const path = require('path');
-
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const PORT = 3000;
 
 const app = express();
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config();
+}
+
+const { NBA_API_KEY, NBA_API_URL } = process.env;
 // app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -19,10 +23,9 @@ app.get('/', (req, res) => {
 app.get('/api/nba', async (req, res) => {
   try {
     const response = await fetch(
-      `https://api.sportradar.us/nba/trial/v8/en/seasons/2022/REG/leaders.json?api_key=2s3pjdfykafdp3ztfqbka7bh`
+      `${NBA_API_URL}en/seasons/2022/REG/leaders.json?api_key=${NBA_API_KEY}`
     );
     const data = await response.json();
-    console.log(data);
     res.status(200).send(data);
   } catch (err) {
     console.log(err);
