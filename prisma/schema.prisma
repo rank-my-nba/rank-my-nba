@@ -9,3 +9,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model PlayerStats {
+  PLAYER_ID  Int @id
+  RANK      Int
+  PLAYER  String
+  TEAM_ID    Int
+  TEAM  String
+  GP        Int
+  MIN       Int
+  FGM       Int
+  FGA       Int
+  FG_PCT    Float
+  FG3M      Int
+  FG3A      Int
+  FG3_PCT   Float
+  FTM       Int
+  FTA       Int
+  FT_PCT    Float
+  OREB      Int
+  DREB      Int
+  REB       Int
+  AST       Int
+  STL       Int
+  BLK       Int
+  TOV       Int
+  PF        Int
+  PTS       Int
+  EFF       Int
+  AST_TOV   Float
+  STL_TOV   Float
+}
+

@@ -1,13 +1,9 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { PlayerData } from './types';
+import { PrismaClient } from '@prisma/client';
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+const prisma = new PrismaClient();
 
-export function formatPlayerData(playerData: PlayerData[]) {
-  const results = playerData?.map((player: PlayerData) => ({
+function formatPlayerData(playerData) {
+  const results = playerData?.map((player) => ({
     PLAYER_ID: player[0],
     RANK: player[1],
     PLAYER: player[2],
@@ -40,3 +36,23 @@ export function formatPlayerData(playerData: PlayerData[]) {
 
   return results;
 }
+
+async function main() {
+  const res = await fetch('http://localhost:8080/api/nba');
+  const data = await res.json();
+  const playerStatsData = formatPlayerData(data.resultSet.rowSet);
+
+  for (const data of playerStatsData) {
+    await prisma.playerStats.create({
+      data
+    });
+  }
+}
+
+main()
+  .catch((e) => {
+    throw e;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
