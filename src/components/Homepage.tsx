@@ -14,24 +14,24 @@ type ErrorResponse = {
 export default function Homepage() {
   const [data, setData] = useState<DataType | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/nba');
-        if (!res.ok) {
-          const errorData: ErrorResponse = await res.json();
-          console.error('Error fetching data:', errorData.error);
-        } else {
-          const data: DataType = await res.json();
-          setData(data);
-        }
-      } catch (err) {
-        console.error('Error fetching data:', err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await fetch('/api/nba');
+  //       if (!res.ok) {
+  //         const errorData: ErrorResponse = await res.json();
+  //         console.error('Error fetching data:', errorData.error);
+  //       } else {
+  //         const data: DataType = await res.json();
+  //         setData(data);
+  //       }
+  //     } catch (err) {
+  //       console.error('Error fetching data:', err);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const formattedPlayerData = formatPlayerData(data?.resultSet.rowSet);
 
@@ -44,9 +44,9 @@ export default function Homepage() {
         </Button>
       </div> */}
       <div className="container h-screen w-full text-foreground gap-4 justify-center">
-        {formattedPlayerData && (
+        {/* {formattedPlayerData && (
           <DataTable columns={columns} data={formattedPlayerData}></DataTable>
-        )}
+        )} */}
       </div>
     </div>
   );
