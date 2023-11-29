@@ -23,17 +23,17 @@ app.get('/', (req, res) => {
 
 // set up to pull from DB instead of json file
 
-app.get('/api/nba', (req, res) => {
-  const filePath = path.resolve(__dirname, '../stats.json');
-  fs.readFile(filePath, 'utf-8', (err, data) => {
-    if (err) {
-      console.error('Error reading file:', err);
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.status(200).json(JSON.parse(data));
-    }
-  });
-});
+// app.get('/api/nba', (req, res) => {
+//   const filePath = path.resolve(__dirname, '../stats.json');
+//   fs.readFile(filePath, 'utf-8', (err, data) => {
+//     if (err) {
+//       console.error('Error reading file:', err);
+//       res.status(500).send('Internal Server Error');
+//     } else {
+//       res.status(200).json(JSON.parse(data));
+//     }
+//   });
+// });
 
 app.get('/api/nba/pts', async (req, res) => {
   const filePath = path.resolve(__dirname, '../stats.json');
