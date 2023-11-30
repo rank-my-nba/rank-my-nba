@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from './ui/button';
-import { Link } from 'react-router-dom';
-import { columns } from './Columns';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { DataTable } from './data-table';
+import React, { useState } from 'react';
+
 import { DataType } from 'lib/types';
-import { formatPlayerData } from 'lib/utils';
 
 type ErrorResponse = {
   error: string;
@@ -33,20 +28,13 @@ export default function Homepage() {
   //   fetchData();
   // }, []);
 
-  const formattedPlayerData = formatPlayerData(data?.resultSet.rowSet);
+  // const formattedPlayerData = formatPlayerData(data?.resultSet.rowSet);
 
   return (
     <div className="flex flex-col p-10 items-center justify-center">
-      <h1 role='test'>2022-23 NBA Stats</h1>
-      {/* <div className="mt-5">
-        <Button>
-          <Link to="/login">Login</Link>
-        </Button>
-      </div> */}
+      <h1 role="test">2022-23 NBA Stats</h1>
       <div className="container h-screen w-full text-foreground gap-4 justify-center">
-        {/* {formattedPlayerData && (
-          <DataTable columns={columns} data={formattedPlayerData}></DataTable>
-        )} */}
+        Hello world
       </div>
     </div>
   );
