@@ -3,9 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const fs = require('fs');
-const { PrismaClient } = require('@prisma/client');
 
-const prisma = new PrismaClient();
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
@@ -101,11 +99,35 @@ app.get('/api/prisma', async (req, res) => {
     [20, 'DAngelo Russell', 19.3, 5.3, 0.2]
   ];
 
+  const mockData3 = [
+    ['Rank', 'Name', 'RPG', 'TOV'],
+    [1, 'LeBron James', 7.9, 3.7],
+    [2, 'Stephen Curry', 5.5, 3.3],
+    [3, 'Kevin Durant', 7.1, 3.4],
+    [4, 'Giannis Antetokounmpo', 11.0, 3.7],
+    [5, 'Luka Dončić', 8.0, 4.3],
+    [6, 'Kawhi Leonard', 6.4, 2.3],
+    [7, 'Anthony Davis', 9.4, 2.4],
+    [8, 'Joel Embiid', 10.8, 3.1],
+    [9, 'Damian Lillard', 4.2, 2.9],
+    [10, 'Jayson Tatum', 7.1, 2.4],
+    [11, 'Kyrie Irving', 4.8, 2.4],
+    [12, 'James Harden', 8.0, 4.0],
+    [13, 'Devin Booker', 4.2, 3.1],
+    [14, 'Jimmy Butler', 6.9, 2.2],
+    [15, 'Karl-Anthony Towns', 10.5, 3.0],
+    [16, 'Trae Young', 4.0, 4.3],
+    [17, 'Chris Paul', 4.5, 2.5],
+    [18, 'Zion Williamson', 7.2, 2.7],
+    [19, 'Rudy Gobert', 13.5, 1.7],
+    [20, 'Brandon Ingram', 4.9, 2.5]
+  ];
+
   const savedRanking = await prisma.savedRankings.create({
     data: {
       name: 'Test',
       userId: 1,
-      SAVED_RANKING: JSON.stringify(mockData1)
+      SAVED_RANKING: JSON.stringify(mockData3)
     }
   });
 

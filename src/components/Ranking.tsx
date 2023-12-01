@@ -29,13 +29,14 @@ const Ranking: React.FC<{ info: any; name: any }> = ({ info, name }) => {
   });
 
   return (
-    <Table>
-      <TableCaption>{name}</TableCaption>
-      <TableHeader>
-        <TableRow>{tableHead}</TableRow>
-      </TableHeader>
-      <TableBody>{tableRow}</TableBody>
-    </Table>
+    <div>
+      <Table>
+        <TableHeader>
+          <TableRow>{tableHead}</TableRow>
+        </TableHeader>
+        <TableBody>{tableRow}</TableBody>
+      </Table>
+    </div>
   );
 };
 
