@@ -8,10 +8,10 @@ const RankingHistory = () => {
     console.log(data);
   };
   return (
-    <div>
+    <div className="flex flex-col h-full w-full items-center">
       <h2>Previous Rankings</h2>
       <Ranking />
-      <button onClick={handleClick}>Click me!</button>
+      {/* <button onClick={handleClick}>Click me!</button> */}
     </div>
   );
 };
