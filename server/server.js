@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const fs = require('fs');
+const { createRanking } = require('../controllers/rankingBuilder.js');
 
 const app = express();
 
@@ -51,6 +52,10 @@ app.get('/api/nba/pts', async (req, res) => {
       res.status(200).send('Data saved to file successfully');
     }
   });
+});
+
+app.post('/api/getRanking', createRanking, (req, res) => {
+  res.json(res.locals.rows);
 });
 
 // need catch all route and global error handler
