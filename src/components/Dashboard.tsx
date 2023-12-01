@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { Input } from './ui/input';
@@ -12,8 +13,75 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from './ui/dropdown-menu';
+import RankingHistory from './RankingHistory';
+import Ranking from './Ranking';
 
 export default function Dashboard() {
+  const [previousRankings, setPreviousRankings] = useState([]);
+  const [display, setDisplay] = useState([]);
+
+  // FIRES WHEN USER SELECTS SPECIFIC PREV RANKING
+  const handleClick = (rankingName: any) => {
+    for (let i = 0; i < previousRankings.length; i++) {
+      if (previousRankings[i].name === rankingName) {
+        setDisplay([
+          <Ranking name={rankingName} info={JSON.parse(previousRankings[i].SAVED_RANKING)} />
+        ]);
+        break;
+      }
+    }
+  };
+
+  // RETRIEVES STORED RANKING DATA
+  const handleGetData = async () => {
+    const res = await fetch('/api/data/prisma');
+    const data = await res.json();
+    setPreviousRankings(data.SAVED_RANKINGS);
+  };
+
+  // INITIAL DATA FETCHING WHEN USER IS IN DASHBOARD PAGE-
+  useEffect(() => {
+    handleGetData();
+  }, []);
+
+  // CREATES JSX FOR USER CLICKED RANKING
+  const displayRankings = previousRankings.map((elem) => {
+    console.log('elem', elem);
+    return <Ranking name={elem.name} info={JSON.parse(elem.SAVED_RANKING)} />;
+  });
+
+  // CREATES JSX FOR SIDE BAR WITH ALL RANKINGS OPTION
+  const prevRankType = previousRankings.map((elem) => {
+    console.log('elem', elem);
+    return (
+      <div
+        className="pl-4 py-2 active:bg-neutral-950 hover:bg-neutral-950/60 text-sm flex items-center gap-2 text-neutral-300"
+        onClick={() => handleClick(elem.name)}>
+        <div className="bg-green-400/70 border p-1 rounded-lg">
+          <Basketball color="black" />
+        </div>
+        <div className="flex w-full items-center justify-between pr-4">
+          <p className="select-none">{elem.name}</p>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="flex items-center cursor-pointer rounded-md justify-center hover:bg-neutral-800 h-8 w-8 p-0 focus:ring-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-neutral-950" align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <DropdownMenuItem>Delete</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+    );
+  });
+
+  // DISPLAY JSX
   return (
     <div className="h-screen text-neutral-400">
       <div className="h-full grid grid-cols-5 grid-rows-6 gap-4 p-10">
@@ -34,6 +102,9 @@ export default function Dashboard() {
         </div>
         <div className="col-span-4 row-span-6 border border-neutral-800 bg-neutral-900 rounded-lg">
           <h1 className="p-3">Dashboard</h1>
+          <div style={{ maxHeight: '90%', overflowY: 'auto' }}>{display}</div>
+
+          {/* <RankingHistory /> */}
         </div>
         <div className="row-span-5 border border-neutral-800 bg-neutral-900 rounded-lg">
           <div className="flex items-center justify-between border-b border-neutral-700">
@@ -42,36 +113,7 @@ export default function Dashboard() {
               + New
             </p>
           </div>
-          <div className="flex flex-col pt-4">
-            <div className="pl-4 py-2 active:bg-neutral-950 hover:bg-neutral-950/60 text-sm flex items-center gap-2 text-neutral-300">
-              <div className="bg-green-400/70 border p-1 rounded-lg">
-                <Basketball color="black" />
-              </div>
-              <div className="flex w-full items-center justify-between pr-4">
-                <p className="select-none">Defence</p>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <div className="flex items-center cursor-pointer rounded-md justify-center hover:bg-neutral-800 h-8 w-8 p-0 focus:ring-0">
-                      <span className="sr-only">Open menu</span>
-                      <MoreHorizontal />
-                    </div>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-neutral-950" align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem>Delete</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
-            <div className="pl-4 py-2 active:bg-neutral-950 hover:bg-neutral-950/60 text-sm flex items-center gap-2 text-neutral-300">
-              <div className="bg-green-400/70 border p-1 rounded-lg">
-                <Basketball color="black" />
-              </div>
-              <p className="select-none">Offence</p>
-            </div>
-          </div>
+          <div className="flex flex-col pt-4">{prevRankType}</div>
         </div>
       </div>
     </div>
