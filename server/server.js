@@ -3,6 +3,9 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const fs = require('fs');
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
 
 const app = express();
 
@@ -34,6 +37,18 @@ app.get('/', (req, res) => {
 //     }
 //   });
 // });
+
+app.get('/api/prisma', async (req, res) => {
+  const savedRanking = await prisma.savedRankings.create({
+    data: {
+      name: 'Test',
+      userId: 1,
+      SAVED_RANKING: '{ test: test }'
+    }
+  });
+
+  res.status(200).send(savedRanking);
+});
 
 app.get('/api/nba/pts', async (req, res) => {
   const filePath = path.resolve(__dirname, '../stats.json');
