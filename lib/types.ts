@@ -103,3 +103,14 @@ export type Headers = {
   AST_TOV: number;
   STL_TOV: number;
 };
+
+export type PlayerArray = [number, string, ...number[]]; // Now includes a string for the player's name
+
+export type SavedRanking = [string[], ...PlayerArray[]];
+
+export type UserRanking = {
+  id: number;
+  name: string;
+  userId: string;
+  SAVED_RANKING: string;
+};
