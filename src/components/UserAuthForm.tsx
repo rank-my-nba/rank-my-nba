@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { useNavigate, Link } from "react-router-dom";
 import { cn } from '../../lib/utils';
 import { Icons } from '../components/Icons';
 import { Button } from '../components/ui/button';
@@ -10,6 +10,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+      const navigate = useNavigate();
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -18,6 +19,7 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
+    navigate("/dashboard");
   }
 
   return (
@@ -37,6 +39,34 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
               autoCorrect="off"
               disabled={isLoading}
             />
+            <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="password">
+              Password
+            </Label>
+            <Input
+              id="password"
+              placeholder="password"
+              type="password"
+              autoCapitalize="none"
+              autoComplete="password"
+              autoCorrect="off"
+              disabled={isLoading}
+            />
+            </div>
+            <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="favorite team">
+              favorite team
+            </Label>
+            <Input
+              id="favorite team"
+              placeholder="what's your favorite team?"
+              type="favorite team"
+              autoCapitalize="none"
+              autoComplete="favorite team"
+              autoCorrect="off"
+              disabled={isLoading}
+            />
+            </div>
           </div>
           <Button disabled={isLoading}>
             {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}

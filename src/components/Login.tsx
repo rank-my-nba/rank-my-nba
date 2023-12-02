@@ -1,8 +1,10 @@
-import React from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
+import { loginUser, checkSession } from '../fetchers/userFetcher';
+import { useNavigate, Link } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { buttonVariants } from '../components/ui/button';
-import UserAuthForm from '../components/UserAuthForm';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import UserAuthForm from './UserAuthForm';
 import Basketball from './Basketball';
 
 export const metadata = {
@@ -38,7 +40,7 @@ export default function AuthenticationPage() {
                 Create an account
               </h1>
               <p className="text-sm text-muted-foreground">
-                Enter your email below to create your account
+                Enter your email, password, and favorite team below to create your account!
               </p>
             </div>
             <UserAuthForm />
