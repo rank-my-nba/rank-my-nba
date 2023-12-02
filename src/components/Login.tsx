@@ -25,9 +25,9 @@ export default function AuthenticationPage() {
         <div className="relative hidden h-full flex-col p-10 text-white border-r lg:flex">
           <div className="absolute inset-0 bg-zinc-900" />
           <Link to="/">
-            <div className="relative z-20 gap-2 flex items-center text-lg font-medium">
+            <div className="relative z-20 gap-1 flex items-center text-lg font-medium">
               <Basketball size={'25px'} />
-              Rank My NBA
+              <p className="tracking-tighter text-2xl text-white font-bold">Rank My NBA</p>
             </div>
           </Link>
         </div>
