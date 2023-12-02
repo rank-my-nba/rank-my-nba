@@ -5,6 +5,8 @@ import { Input } from './ui/input';
 import Ranking from './Ranking';
 import SavedRanking from './SavedRanking';
 import { UserRanking } from 'lib/types';
+import Basketball from './Basketball';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   const [previousRankings, setPreviousRankings] = useState<UserRanking[] | null>(null);
@@ -61,7 +63,12 @@ export default function Dashboard() {
       <div className="h-full grid grid-cols-5 grid-rows-6 gap-4 p-10">
         <div className="col-span-1 row-span-1 border border-neutral-800 bg-neutral-900 rounded-lg">
           <div className="flex flex-col gap-3 h-full">
-            <h1 className="border-b px-4 py-3 tracking-wide text-sm">Find Player</h1>
+            <Link to="/">
+              <h1 className="border-b flex items-center gap-1 text-neutral-300 px-4 py-3 tracking-wide text-sm">
+                <Basketball />
+                <p className="tracking-tighter text-xl font-bold">Rank My NBA</p>
+              </h1>
+            </Link>
             <div className="flex gap-3 p-3">
               <Input
                 className="focus-visible:ring-1 h-8 text-xs"

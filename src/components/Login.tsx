@@ -12,10 +12,60 @@ export const metadata = {
   description: 'Authentication forms built using the components.'
 };
 
+type Data = {
+  'Combined Ranking'?: number;
+  PLAYER: string;
+  GP: number;
+  MIN: number;
+  'GP Ranking': number;
+  'MIN Ranking': number;
+}[];
+
+const checkData = () => {
+  const data: Data = [
+    {
+      PLAYER: 'Mikal Bridges',
+      GP: 83,
+      MIN: 2963,
+      'GP Ranking': 1,
+      'MIN Ranking': 1
+    },
+    {
+      PLAYER: 'JJ Hickson',
+      GP: 81,
+      MIN: 2363,
+      'GP Ranking': 3,
+      'MIN Ranking': 29
+    },
+    {
+      PLAYER: 'Bobby Tables',
+      GP: 81,
+      MIN: 2363,
+      'GP Ranking': 3,
+      'MIN Ranking': 29
+    },
+    {
+      PLAYER: 'LeBron James',
+      GP: 76,
+      MIN: 2000,
+      'GP Ranking': 17,
+      'MIN Ranking': 120
+    }
+    // ... (other objects)
+  ];
+
+  // Sort the array based on combined ranking
+  data.sort((a, b) => a['GP Ranking'] + a['MIN Ranking'] - (b['GP Ranking'] + b['MIN Ranking']));
+
+  console.log(data);
+};
+
+checkData();
+
 export default function AuthenticationPage() {
   return (
     <div className="h-full">
-      <div className="container relative hidden h-full flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative h-full flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           to="/login"
           className={cn(
