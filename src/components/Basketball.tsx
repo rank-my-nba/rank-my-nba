@@ -1,10 +1,19 @@
 import React from 'react';
 
-export default function Basketball({ color = '#fff' }: { color?: string }) {
+export default function Basketball({
+  color = '#fff',
+  animate = '',
+  size = '20px'
+}: {
+  color?: string;
+  animate?: string;
+  size?: string;
+}) {
   return (
     <svg
-      height="20px"
-      width="20px"
+      className={`${animate}`}
+      height={size}
+      width={size}
       version="1.1"
       id="_x32_"
       xmlns="http://www.w3.org/2000/svg"

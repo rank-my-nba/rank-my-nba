@@ -1,9 +1,9 @@
 import * as React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import PageNotFound from '../src/components/PageNotFound';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../src/App';
+import PageNotFound from '../src/components/PageNotFound';
 
 describe('Page not found', () => {
   it('renders the component', () => {
