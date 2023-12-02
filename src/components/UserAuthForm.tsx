@@ -59,7 +59,7 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
             </Label>
             <Input
               id="favorite team"
-              placeholder="What's your favorite team?"
+              placeholder="what's your favorite team?"
               type="favorite team"
               autoCapitalize="none"
               autoComplete="favorite team"
