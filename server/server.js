@@ -4,8 +4,12 @@ const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const fs = require('fs');
 const { createRanking } = require('../controllers/rankingBuilder.js');
-
 const { PrismaClient } = require('@prisma/client');
+//added code
+const session = require('express-session');
+const passport = require('passport');
+const {authPassport} = require('../backend/auth.jsx');
+//
 
 const prisma = new PrismaClient();
 
@@ -179,6 +183,61 @@ app.get('/api/nba/pts', async (req, res) => {
 app.post('/api/getRanking', createRanking, (req, res) => {
   res.json(res.locals.rows);
 });
+
+//added code
+
+//dotenv.config({ path: './.env' });
+//end of added code
+//added code
+
+function isLoggedIn(req, res, next) {
+  req.user ? next() : res.sendStatus(401);
+}
+
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//HAD TO COMMENT THIS LINE BECAUSE IT'S SAME ENDPOINT AS LOGIN AND WAS TAKING OVER IT
+// app.get('/', (req, res) => {
+//   res.send('<a href="/test" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Google</a>');
+// });
+
+app.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' })
+);
+
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: 'http://localhost:8080/dashboard',
+    failureRedirect: '/auth/google/failure'
+  })
+);
+
+app.get('http://localhost:8080/dashboard', isLoggedIn, (req, res) => {
+  res.send(`Hello ${req.user.displayName}`);
+});
+
+app.get('/logout', (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('http://127.0.0.1:5173');
+    });
+  });
+});
+
+app.get('/auth/google/failure', (req, res) => {
+  res.send('Failed to authenticate..');
+});
+//end of added code
 
 // need catch all route and global error handler
 
