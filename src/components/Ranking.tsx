@@ -10,22 +10,22 @@ import {
   TableHeader,
   TableRow
 } from './ui/table';
+import { SavedRanking } from 'lib/types';
 
-const Ranking: React.FC<{ info: any; name: any }> = ({ info, name }) => {
-  console.log('info', info);
+const Ranking: React.FC<{ info: SavedRanking; name: string }> = ({ info, name }) => {
   const idk = info.map((elem: any) => {
     return <Row rowInfo={elem} />;
   });
 
-  const tableHead = info[0].map((elem: any) => {
-    return <TableHead>{elem}</TableHead>;
+  const tableHead = info[0].map((header: string) => {
+    return <TableHead key={header}>{header}</TableHead>;
   });
 
-  const tableRow = info.slice(1).map((elem: any) => {
-    const tableCell = elem.map((cell: any) => {
-      return <TableCell>{cell}</TableCell>;
+  const tableRow = info.slice(1).map((player, index) => {
+    const tableCell = player.map((cell, index) => {
+      return <TableCell key={`${cell} + ${index}`}>{cell}</TableCell>;
     });
-    return <TableRow>{tableCell}</TableRow>;
+    return <TableRow key={`${player} + ${index}`}>{tableCell}</TableRow>;
   });
 
   return (
