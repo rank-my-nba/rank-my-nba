@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const PORT = 3000;
 const fs = require('fs');
+const cookieController = require('../backend/cookieController.tsx').default;
 
 const app = express();
 
@@ -17,7 +18,12 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/build')));
 
+app.get('/api/check-session', cookieController.verifyCookie, (req, res) =>{
+  res.status(200).json(req.cookies);
+});
+
 app.get('/', (req, res) => {
+  console.log('welcome to main page');
   return res.status(200).sendFile(path.join(__dirname, '../src/index.html'));
 });
 
