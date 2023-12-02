@@ -6,11 +6,15 @@ const pool = new pg.Pool({ connectionString: conString });
 
 const rankingQuery = async (arrayOfParams) => {
   const client = await pool.connect();
-  const arg1 = arrayOfParams[0];
-  const arg2 = arrayOfParams[1];
-  let res = await client.query(
-    'SELECT "PLAYER", "' + arg1 + '", "' + arg2 + '" FROM "public"."PlayerStats"'
-  );
+  // const arg1 = arrayOfParams[0];
+  // const arg2 = arrayOfParams[1];
+  let paramString = '';
+  for (let i = 0; i < arrayOfParams.length; i++) {
+    paramString += ', "' + arrayOfParams[i] + '"';
+  }
+  console.log(paramString);
+  // 'SELECT "PLAYER", "' + arg1 + '", "' + arg2 + '" FROM "PlayerStats"'
+  let res = await client.query('SELECT "PLAYER"' + paramString + ' FROM "PlayerStats"');
   client.release();
   return res;
 };
