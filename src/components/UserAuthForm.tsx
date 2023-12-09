@@ -82,7 +82,9 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
           <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <a href="http://localhost:3000/auth/google" className="grid gap-1">
+  
+      <Button variant="outline" type="button" disabled={isLoading} >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
@@ -90,6 +92,7 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
         )}{' '}
         Google
       </Button>
+      </a>
     </div>
   );
 }
